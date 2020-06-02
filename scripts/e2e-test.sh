@@ -16,7 +16,7 @@
 
 set -euo pipefail
 
-export OPERATOR_SDK_VERSION="v0.8.1"
+export OPERATOR_SDK_VERSION="v0.10.0"
 
 usage() {
     cat <<EOT
@@ -107,9 +107,10 @@ EUNOMIA_PATH=$(
     pwd
 )
 
-if ! operator-sdk version | grep "${OPERATOR_SDK_VERSION}"; then
-    echo "Error: Operator-SDK ${OPERATOR_SDK_VERSION} not found"
-    exit 1
+OSDK_VERSION="$(operator-sdk version)"
+if ! echo "${OSDK_VERSION}" | grep "${OPERATOR_SDK_VERSION}"; then
+    echo "Error: You should be using Operator-SDK ${OPERATOR_SDK_VERSION}."
+    echo "Found: ${OSDK_VERSION}"
 fi
 
 # Process the command line parameters
@@ -332,6 +333,9 @@ pause
 # Delete namespaces after Testing hello-world-yaml example
 kubectl delete namespace eunomia-hello-world-yaml-demo
 
+# Let things settle down just a bit more
+sleep 15
+
 ## Testing hello-world-helm example
 # Create new namespace
 kubectl create namespace eunomia-hello-world-demo
@@ -406,6 +410,9 @@ pause
 
 # Delete namespaces after Testing hello-world-helm example
 kubectl delete namespace eunomia-hello-world-demo
+
+# Let things settle down just a bit more
+sleep 15
 
 ## Testing hello-world-hierarchy example
 # Create new namespace

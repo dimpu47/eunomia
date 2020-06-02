@@ -4,10 +4,9 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// GitConfig represents all the infomration necessary to
+// GitConfig represents all the information necessary to
 type GitConfig struct {
 	//+kubebuilder:validation:Pattern=(^$|(((git|ssh|http(s)?)|(git@[\w\.]+))(:(//)?)([\w\.@\:/\-~]+)(\.git)(/)))?
 	URI        string `json:"uri,omitempty"`
